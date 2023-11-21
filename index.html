@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Persebaran Objek Wisata di Kota Bogor Berbasis QGISWeb</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css">
+        <link rel="stylesheet" href="css/leaflet-search.css">
+        <style>
+        #map {
+            width: 1600px;
+            height: 853px;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-search.js"></script>
+        <script src="data/ADMINISTRASIDESA_AR_25K_0.js"></script>
+        <script src="data/TempatwisatadiKotaBogor_1.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        })
+        var hash = new L.Hash(map);
+        map.attributionControl.addAttribution('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a>');
+        var bounds_group = new L.featureGroup([]);
+        var basemap0 = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+            maxZoom: 28
+        });
+        basemap0.addTo(map);
+        function setBounds() {
+            if (bounds_group.getLayers().length) {
+                map.fitBounds(bounds_group.getBounds());
+            }
+        }
+        function pop_ADMINISTRASIDESA_AR_25K_0(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['KDPPUM'] !== null ? Autolinker.link(String(feature.properties['KDPPUM'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">NAMOBJ</th>\
+                        <td>' + (feature.properties['NAMOBJ'] !== null ? Autolinker.link(String(feature.properties['NAMOBJ'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['REMARK'] !== null ? Autolinker.link(String(feature.properties['REMARK'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['KDPBPS'] !== null ? Autolinker.link(String(feature.properties['KDPBPS'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['FCODE'] !== null ? Autolinker.link(String(feature.properties['FCODE'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['LUASWH'] !== null ? Autolinker.link(String(feature.properties['LUASWH'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['UUPP'] !== null ? Autolinker.link(String(feature.properties['UUPP'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['SRS_ID'] !== null ? Autolinker.link(String(feature.properties['SRS_ID'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['LCODE'] !== null ? Autolinker.link(String(feature.properties['LCODE'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['METADATA'] !== null ? Autolinker.link(String(feature.properties['METADATA'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['KDEBPS'] !== null ? Autolinker.link(String(feature.properties['KDEBPS'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['KDEPUM'] !== null ? Autolinker.link(String(feature.properties['KDEPUM'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['KDCBPS'] !== null ? Autolinker.link(String(feature.properties['KDCBPS'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['KDCPUM'] !== null ? Autolinker.link(String(feature.properties['KDCPUM'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['KDBBPS'] !== null ? Autolinker.link(String(feature.properties['KDBBPS'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['KDBPUM'] !== null ? Autolinker.link(String(feature.properties['KDBPUM'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['WADMKD'] !== null ? Autolinker.link(String(feature.properties['WADMKD'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['WIADKD'] !== null ? Autolinker.link(String(feature.properties['WIADKD'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['WADMKC'] !== null ? Autolinker.link(String(feature.properties['WADMKC'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['WIADKC'] !== null ? Autolinker.link(String(feature.properties['WIADKC'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['WADMKK'] !== null ? Autolinker.link(String(feature.properties['WADMKK'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['WIADKK'] !== null ? Autolinker.link(String(feature.properties['WIADKK'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['WADMPR'] !== null ? Autolinker.link(String(feature.properties['WADMPR'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['WIADPR'] !== null ? Autolinker.link(String(feature.properties['WIADPR'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['TIPADM'] !== null ? Autolinker.link(String(feature.properties['TIPADM'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['SHAPE_Leng'] !== null ? Autolinker.link(String(feature.properties['SHAPE_Leng'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['SHAPE_Area'] !== null ? Autolinker.link(String(feature.properties['SHAPE_Area'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_ADMINISTRASIDESA_AR_25K_0_0(feature) {
+            switch(String(feature.properties['NAMOBJ'])) {
+                case 'Babakan':
+                    return {
+                pane: 'pane_ADMINISTRASIDESA_AR_25K_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,0.745098)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(67,203,72,0.745098)',
+            }
+                    break;
+                case 'Balumbangjaya':
+                    return {
+                pane: 'pane_ADMINISTRASIDESA_AR_25K_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,0.745098)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(26,75,221,0.745098)',
+            }
+                    break;
+                case 'Bantarjati':
+                    return {
+                pane: 'pane_ADMINISTRASIDESA_AR_25K_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,0.745098)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(218,108,167,0.745098)',
+            }
+                    break;
+                case 'Baranagsiang':
+                    return {
+                pane: 'pane_ADMINISTRASIDESA_AR_25K_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,0.745098)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(96,233,217,0.745098)',
+            }
+                    break;
+                case 'Batutulis':
+                    return {
+                pane: 'pane_ADMINISTRASIDESA_AR_25K_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,0.690196078431)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(226,180,41,0.690196078431)',
+            }
+                    break;
+                case 'Cibadak':
+                    return {
+                pane: 'pane_ADMINISTRASIDESA_AR_25K_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,0.745098)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(178,82,238,0.745098)',
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_ADMINISTRASIDESA_AR_25K_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,0.745098)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(188,226,17,0.745098)',
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_ADMINISTRASIDESA_AR_25K_0');
+        map.getPane('pane_ADMINISTRASIDESA_AR_25K_0').style.zIndex = 400;
+        map.getPane('pane_ADMINISTRASIDESA_AR_25K_0').style['mix-blend-mode'] = 'normal';
+        var layer_ADMINISTRASIDESA_AR_25K_0 = new L.geoJson(json_ADMINISTRASIDESA_AR_25K_0, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_ADMINISTRASIDESA_AR_25K_0',
+            onEachFeature: pop_ADMINISTRASIDESA_AR_25K_0,
+            style: style_ADMINISTRASIDESA_AR_25K_0_0,
+        });
+        bounds_group.addLayer(layer_ADMINISTRASIDESA_AR_25K_0);
+        map.addLayer(layer_ADMINISTRASIDESA_AR_25K_0);
+        function pop_TempatwisatadiKotaBogor_1(feature, layer) {
+            var popupContent = '<table>\
+                <tr>\
+                        <td colspan="2" align="center" style="font-size: 20px;"><b>' + (feature.properties['Nama tempa'] !== null ? Autolinker.link(String(feature.properties['Nama tempa'])) : '') + '</b></td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><b>Longitude: </b>' + (feature.properties['x'] !== null ? Autolinker.link(String(feature.properties['x'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><b>Latitude: </b>' + (feature.properties['y'] !== null ? Autolinker.link(String(feature.properties['y'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Web</th>\
+                        <td>' + (feature.properties['web'] !== null ? Autolinker.link(String(feature.properties['web'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Gambar</th>\
+                        <td>' + (feature.properties['gambar'] !== null ? '<img src="images/' + String(feature.properties['gambar']).replace(/[\\\/:]/g, '_').trim() + '">' : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_TempatwisatadiKotaBogor_1_0() {
+            return {
+                pane: 'pane_TempatwisatadiKotaBogor_1',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/red-marker.svg',
+            iconSize: [53.2, 53.2]
+        }),
+            }
+        }
+        map.createPane('pane_TempatwisatadiKotaBogor_1');
+        map.getPane('pane_TempatwisatadiKotaBogor_1').style.zIndex = 401;
+        map.getPane('pane_TempatwisatadiKotaBogor_1').style['mix-blend-mode'] = 'normal';
+        var layer_TempatwisatadiKotaBogor_1 = new L.geoJson(json_TempatwisatadiKotaBogor_1, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_TempatwisatadiKotaBogor_1',
+            onEachFeature: pop_TempatwisatadiKotaBogor_1,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.marker(latlng, style_TempatwisatadiKotaBogor_1_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_TempatwisatadiKotaBogor_1);
+        map.addLayer(layer_TempatwisatadiKotaBogor_1);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/TempatwisatadiKotaBogor_1.png" /> Tempat wisata di Kota Bogor': layer_TempatwisatadiKotaBogor_1,'ADMINISTRASIDESA_AR_25K<br /><table><tr><td style="text-align: center;"><img src="legend/ADMINISTRASIDESA_AR_25K_0_Babakan0.png" /></td><td>Babakan</td></tr><tr><td style="text-align: center;"><img src="legend/ADMINISTRASIDESA_AR_25K_0_Balumbangjaya1.png" /></td><td>Balumbangjaya</td></tr><tr><td style="text-align: center;"><img src="legend/ADMINISTRASIDESA_AR_25K_0_Bantarjati2.png" /></td><td>Bantarjati</td></tr><tr><td style="text-align: center;"><img src="legend/ADMINISTRASIDESA_AR_25K_0_Baranagsiang3.png" /></td><td>Baranagsiang</td></tr><tr><td style="text-align: center;"><img src="legend/ADMINISTRASIDESA_AR_25K_0_Batutulis4.png" /></td><td>Batutulis</td></tr><tr><td style="text-align: center;"><img src="legend/ADMINISTRASIDESA_AR_25K_0_Cibadak5.png" /></td><td>Cibadak</td></tr><tr><td style="text-align: center;"><img src="legend/ADMINISTRASIDESA_AR_25K_0_6.png" /></td><td></td></tr></table>': layer_ADMINISTRASIDESA_AR_25K_0,}).addTo(map);
+        setBounds();
+        var i = 0;
+        layer_ADMINISTRASIDESA_AR_25K_0.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['NAMOBJ'] !== null?String('<div style="color: #000000; font-size: 8pt; font-weight: bold; font-family: \'MS Shell Dlg 2\', sans-serif;">' + layer.feature.properties['NAMOBJ']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_ADMINISTRASIDESA_AR_25K_0'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        map.addControl(new L.Control.Search({
+            layer: layer_ADMINISTRASIDESA_AR_25K_0,
+            initial: false,
+            hideMarkerOnCollapse: true,
+            propertyName: 'NAMOBJ'}));
+        resetLabels([layer_ADMINISTRASIDESAAR25K_0]);
+        map.on("zoomend", function(){
+            resetLabels([layer_ADMINISTRASIDESAAR25K_0]);
+        });
+        map.on("layeradd", function(){
+            resetLabels([layer_ADMINISTRASIDESAAR25K_0]);
+        });
+        map.on("layerremove", function(){
+            resetLabels([layer_ADMINISTRASIDESAAR25K_0]);
+        });
+        </script>
+    </body>
+</html>
